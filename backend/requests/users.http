@@ -1,0 +1,31 @@
+@baseUrl=http://localhost:5000/authors
+
+GET {{baseUrl}}
+
+###
+
+GET {{baseUrl}}/users/10
+
+###
+
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "name": "Pinco",
+    "age": "30"
+}
+
+###
+
+PUT {{baseUrl}}/users/15
+Content-Type: application/json
+
+{
+    "name": "Pinco",
+    "age": "25"
+}
+
+###
+
+DELETE {{baseUrl}}/users/10
