@@ -1,0 +1,37 @@
+@baseUrl=http://localhost:5000/authors
+
+GET {{baseUrl}}
+
+###
+
+GET {{baseUrl}}/123
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "name": "Petet",
+    "surname": "Stot",
+    "email": "psott@gmail.com",
+    "birthDate": "01/02/2001",
+    "avatar": ""
+}
+
+###
+
+PUT {{baseUrl}}/66c100d499074d7b538ced49
+Content-Type: application/json
+
+{
+    "name": "Petet",
+    "surname": "Stot",
+    "email": "psott@gmail.com",
+    "birthDate": "01/02/2001",
+    "avatar": ""
+}
+
+###
+
+DELETE {{baseUrl}}/123

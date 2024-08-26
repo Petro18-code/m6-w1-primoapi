@@ -1,0 +1,41 @@
+@baseUrl=http://localhost:5000/blogPosts
+
+### RITORNA LA LISTA DEI POSTSBLOG
+GET {{baseUrl}}
+###
+GET {{baseUrl}}?page=1&perPage=3
+### RITORNA IL SINGOLO POSTBLOG
+GET {{baseUrl}}/66c100d499074d7b538ced49
+
+### CREA UN NUOVO POSTBLOG
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "category":"emailss",
+  "title":"emailsss",
+  "cover": "your_urls",
+  "readTime": {
+    "value": 1,
+    "unit": "min"
+  },
+  "author":"ciaohello@gmail.com",
+  "content": "ovlla"
+}
+### MODIFICA UN POSTBLOG CON ID ASSOCIATO
+PUT {{baseUrl}}/66c8e3667f73e34a957267ce
+Content-Type: application/json
+
+{
+    "category": "0987",
+    "title": "09",
+    "cover": "url della cover",
+    "readTime": {
+        "value": 2,
+        "unit": "min"
+    },
+    "author": "ilop",
+    "content": "0987654321"
+}
+### CANCELLA UN POSTBLOG CON ID ASSOCIATO
+DELETE {{baseUrl}}/66c8e3667f73e34a957267ce
