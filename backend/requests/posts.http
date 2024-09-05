@@ -12,15 +12,15 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "category":"emailss",
-  "title":"emailsss",
-  "cover": "your_urls",
+  "category":"emailssoro",
+  "title":"emailsssard",
+  "cover": "your_urrlssac",
   "readTime": {
     "value": 1,
     "unit": "min"
   },
-  "author":"ciaohello@gmail.com",
-  "content": "ovlla"
+  "author":"ciaoherllociao@gmail.com",
+  "content": "ovllaii"
 }
 ### MODIFICA UN POSTBLOG CON ID ASSOCIATO
 PUT {{baseUrl}}/66c8e3667f73e34a957267ce

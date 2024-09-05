@@ -1,10 +1,18 @@
 import express from "express";
-import Author from "../models/AuthorsSchema.js";
+import { getAuthors, getSingleAuthor, createAuthor, editAuthor, deleteAuthor, patchAuthor, getSingleAuthorPosts } from "../controllers/author.controller.js";
 import uploadCloudinary from "../middleware/uploadCloudinary.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", getAuthors);
+router.get("/:id", getSingleAuthor);
+router.post("/", createAuthor);
+router.put("/:id", editAuthor);
+router.delete("/:id", deleteAuthor);
+router.patch("/:authorId/avatar", uploadCloudinary.single("avatar"), patchAuthor);
+router.get ('/:id/blogPosts', getSingleAuthorPosts)
+
+/* router.get("/", async (req, res) => {
   try {
     const totalResults = await Author.countDocuments();
     const page = req.query.page || 1;
@@ -90,6 +98,6 @@ router.patch(
       res.status(400).send(err);
     }
   }
-);
+); */
 
 export default router;

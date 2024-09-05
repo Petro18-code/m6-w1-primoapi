@@ -3,8 +3,10 @@ import { Container, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
-import posts from "../../data/posts.json";
 import "./styles.css";
+import { loadSinglePost } from "../../data/fetch";
+
+
 const Blog = props => {
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
@@ -12,23 +14,34 @@ const Blog = props => {
   const navigate = useNavigate();
   useEffect(() => {
     const { id } = params;
-    const blog = posts.find(post => post._id.toString() === id);
+    console.log(id)
+    // const blog = posts.find(post => post._id.toString() === id);
+    const blogPostDetails = async () =>{
+      try {
+        const res = await loadSinglePost(id);
+        if (res){
+          setBlog(res)
+          setLoading(false)
+        }else { 
+          console.log('non ho trovato')
+          // navigate("/404");
 
-    if (blog) {
-      setBlog(blog);
-      setLoading(false);
-    } else {
-      navigate("/404");
+        }
+      }catch (error) {
+        console.log(error);
+          setLoading(false)
+      }
     }
-  }, []);
 
-  if (loading) {
-    return <div>loading</div>;
-  } else {
+  blogPostDetails()
+  }, [params, navigate]);
+    if (loading) {
+      return <div>loading</div>
+    } else { 
     return (
       <div className="blog-details-root">
         <Container>
-          <Image className="blog-details-cover" src={blog.cover} fluid />
+          <Image className="blog-details-cover" src={blog.cover}  />
           <h1 className="blog-details-title">{blog.title}</h1>
 
           <div className="blog-details-container">
@@ -53,6 +66,7 @@ const Blog = props => {
               __html: blog.content,
             }}
           ></div>
+          <div className="mt-5">Commenti: qui sotto</div>
         </Container>
       </div>
     );

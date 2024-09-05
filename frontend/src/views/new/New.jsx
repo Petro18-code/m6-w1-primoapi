@@ -1,24 +1,31 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState , useContext} from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "./styles.css";
 import {convertToRaw} from "draft-js"
 import draftToHtml from "draftjs-to-html"
-import { NewPost } from "../../data/fetch";
-
+import { newPost } from "../../data/fetch";
+import Alert from 'react-bootstrap/Alert';
+import { AuthorContext } from "../../context/AuthorContextProvider";
+import {jwtDecode} from 'jwt-decode'
 
 const NewBlogPost = props => {
   const [text, setText] = useState("");
+  const [cover, setCover] = useState("");
+  const {token, setToken} = useContext(AuthorContext)
+  const decodedToken = jwtDecode(token)
+  console.log(decodedToken)
+  
   const initialFormValue = {
     category: "",
     title: "",
-    cover: "https://picsum.photos/300/300",
+    cover: "",
     readTime: {
         value: 0,
         unit: ""
     },
-    author: "",
+    author: decodedToken.authorId,
     content: ""
   }
   const [formValue, setFormValue] = useState(initialFormValue)
@@ -28,6 +35,12 @@ const NewBlogPost = props => {
       [event.target.name]: event.target.value
     })
   }
+
+  const handleChangeImage = (event) =>{
+    handleChangeFormValue(event)
+    setCover(event.target.files[0])
+  }
+
   const handleChange = useCallback(value => {
   
     setText(draftToHtml(value));
@@ -40,6 +53,7 @@ const NewBlogPost = props => {
   });
 
   return (
+    
     <Container className="new-blog-container">
       <Form className="mt-5">
         <Form.Group controlId="blog-form" className="mt-3">
@@ -58,6 +72,10 @@ const NewBlogPost = props => {
 
           </Form.Control>
         </Form.Group>
+        <Form.Group controlId="cover" className="mt-3 mb-3" >
+        <Form.Label>Cover</Form.Label>
+        <Form.Control type="file" name="cover" onChange={handleChangeImage} />
+      </Form.Group>
         <Form.Group controlId="blog-content" className="mt-3">
           <Form.Label>Contenuto Blog</Form.Label>
 
@@ -68,12 +86,12 @@ const NewBlogPost = props => {
             Reset
           </Button>
           <Button
-            type="submit"
+            type="button"
             size="lg"
             variant="dark"
             style={{
               marginLeft: "1em",
-            }} onClick={()=>NewPost(formValue)}
+            }} onClick={()=>newPost(formValue,cover)}
           >
             Invia
           </Button>

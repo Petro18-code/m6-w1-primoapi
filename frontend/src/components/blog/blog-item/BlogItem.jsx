@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BlogAuthor from "../blog-author/BlogAuthor";
 import "./styles.css";
@@ -14,6 +14,7 @@ const BlogItem = (props) => {
         </Card.Body>
         <Card.Footer>
           <BlogAuthor {...author} />
+          <Button variant="dark" as={Link} to={`/blog/${_id}`}>Read</Button>
         </Card.Footer>
       </Card>
     </Link>

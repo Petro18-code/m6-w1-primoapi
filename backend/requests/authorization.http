@@ -1,0 +1,26 @@
+@baseUrl= http://localhost:5000/auth
+
+POST {{baseUrl}}/register
+Content-Type: application/json
+ 
+{
+    "name": "Petroo",
+    "surname": "Sota",
+    "email": "petroo@sota.com",
+    "avatar": "",
+    "password":"ciaooo"
+}
+
+###
+POST {{baseUrl}}/login
+Content-Type: application/json
+ 
+{
+    "email": "petroo@sota.com",
+    "password":"ciaooo"
+} 
+
+###
+
+GET {{baseUrl}}/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JJZCI6IjY2ZDFkMzZkZTI1ODk3MTg4ZGI5YzhmYiIsImlhdCI6MTcyNTAyODQzNCwiZXhwIjoxNzI1MDMyMDM0fQ.-QN3v9K-1BPH1Ng1pEiTJpV6r7Jay0FD_ew3oaDTY_8

@@ -1,12 +1,27 @@
 import express from "express";
-import Post from "../models/PostsSchema.js";
+import { getPost, getSinglePost, addPost, editPost, deletePost, patchPost } from "../controllers/post.controller.js";
 import uploadCloudinary from '../middleware/uploadCloudinary.js';
-import transport from "../services/mailService.js";
+import { getComments, getSingleComment, createComment, editComment, deleteComment } from "../controllers/comment.controller.js";
 
 const router = express.Router();
 
+router.get("/", getPost);
+router.get("/:id", getSinglePost);
+router.post("/", uploadCloudinary.single('cover'), addPost);
+router.put("/:id", editPost);
+router.delete("/:id", deletePost);
+router.patch("/:blogPostId/cover", uploadCloudinary.single("cover"), patchPost);
+
+//rotte per i commenti
+
+router.post('/:postId/comments',createComment)
+router.get('/:postId/comments', getComments)
+router.get('/:postId/comments/:commentId', getSingleComment)
+router.put('/:postId/comment/:commentId', editComment)
+router.delete('/:postId/comment/:commentId', deleteComment)
+
 /** GET /authors/:id/blogPosts/ => ricevi tutti i blog post di uno specifico autore dal corrispondente ID */
-router.get("/", async (req, res) => {
+/* router.get("/", async (req, res) => {
   try {
     const totalResults = await Post.countDocuments();
     const PAGE = req.query.page || 1;
@@ -94,6 +109,6 @@ router.patch('/:blogPostId/cover', uploadCloudinary.single('cover'),async (req,r
       res.status(400).send(error)
   }
   
-})
+}) */
 
 export default router;
